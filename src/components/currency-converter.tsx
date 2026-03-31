@@ -24,7 +24,7 @@ const fetcher = (url: string) => fetch(url).then((res) => {
 });
 
 export function CurrencyConverter() {
-  const [amount, setAmount] = useState<string>("15000");
+  const [amount, setAmount] = useState<string>("1");
   const [fromCurrency, setFromCurrency] = useState<string>("USD");
   const [toCurrency, setToCurrency] = useState<string>("VND");
 
@@ -36,8 +36,9 @@ export function CurrencyConverter() {
     `${API_BASE_URL}?base=${debouncedFromCurrency}`,
     fetcher,
     {
-      revalidateOnFocus: false, // Don't revalidate on window focus for free APIs
-      dedupingInterval: 60000, // Cache for 60 seconds
+      revalidateOnFocus: false, // Don't revalidate on window focus
+      revalidateOnReconnect: false,
+      dedupingInterval: 86400000, // Cache for 24 hours in browser memory
     }
   );
 
@@ -123,6 +124,7 @@ export function CurrencyConverter() {
             result={result}
             from={fromCurrency}
             to={toCurrency}
+            lastUpdate={data?.time_last_update_utc}
           />
         </div>
       </CardContent>

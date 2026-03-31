@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   try {
     const res = await fetch(
       `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${baseCurrency}`,
-      { next: { revalidate: 60 } } // Cache API response for 60 giây on server
+      { next: { revalidate: 86400 } } // Cache API response for 24 hours on server
     );
 
     if (!res.ok) {

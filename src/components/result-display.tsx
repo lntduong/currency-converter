@@ -9,6 +9,7 @@ interface ResultDisplayProps {
   result: number;
   from: string;
   to: string;
+  lastUpdate?: string;
 }
 
 export function ResultDisplay({
@@ -18,6 +19,7 @@ export function ResultDisplay({
   result,
   from,
   to,
+  lastUpdate,
 }: ResultDisplayProps) {
   if (error) {
     return (
@@ -39,12 +41,17 @@ export function ResultDisplay({
           <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
             {new Intl.NumberFormat("en-US").format(amount)} {from} =
           </p>
-          <div className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <div className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white pb-1">
             {new Intl.NumberFormat("en-US", {
               maximumFractionDigits: 5,
             }).format(result)}{" "}
             <span className="text-2xl text-slate-500">{to}</span>
           </div>
+          {lastUpdate && (
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 italic">
+              Cập nhật lần cuối: {new Date(lastUpdate).toLocaleString('vi-VN')}
+            </p>
+          )}
         </div>
       )}
     </div>
