@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { AmountInput } from "./amount-input";
 import { CurrencySelect } from "./currency-select";
 import { ResultDisplay } from "./result-display";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useDebounce } from "@/hooks/use-debounce";
 import { API_BASE_URL } from "@/lib/constants";
 
@@ -66,6 +67,15 @@ export function CurrencyConverter() {
         <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
           Currency Converter
         </CardTitle>
+        <div className="mt-3 flex justify-center">
+          {isLoading && !data ? (
+            <Skeleton className="h-6 w-40" />
+          ) : data?.conversion_rates?.[toCurrency] ? (
+            <p className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-sm font-semibold text-blue-700 dark:text-blue-300">
+              1 {fromCurrency} = {new Intl.NumberFormat("en-US", { maximumFractionDigits: 5 }).format(data.conversion_rates[toCurrency])} {toCurrency}
+            </p>
+          ) : null}
+        </div>
       </CardHeader>
 
       <CardContent className="space-y-6">
