@@ -48,7 +48,7 @@ export function CurrencyConverter() {
   };
 
   const parsedAmount = parseFloat(debouncedAmount) || 0;
-  
+
   // Calculate result based on rates
   let result = 0;
   if (data?.conversion_rates && data.conversion_rates[toCurrency]) {
@@ -56,8 +56,8 @@ export function CurrencyConverter() {
   }
 
   // Extract available currencies
-  const currencies = data?.conversion_rates 
-    ? Object.keys(data.conversion_rates) 
+  const currencies = data?.conversion_rates
+    ? Object.keys(data.conversion_rates)
     : ["USD", "VND", "EUR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "HKD", "NZD"];
 
   return (
@@ -66,24 +66,14 @@ export function CurrencyConverter() {
         <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
           Currency Converter
         </CardTitle>
-        <CardDescription className="flex items-center justify-center gap-2 mt-2">
-          Real-time exchange rates
-          <button 
-            onClick={() => mutate()} 
-            className="hover:text-slate-900 dark:hover:text-white transition-colors"
-            title="Refresh rates"
-          >
-            <RefreshCw className={`h-3 w-3 ${isLoading ? 'animate-spin' : ''}`} />
-          </button>
-        </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="space-y-6">
-        <AmountInput 
-          value={amount} 
-          onChange={setAmount} 
+        <AmountInput
+          value={amount}
+          onChange={setAmount}
         />
-        
+
         <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 w-full">
           <div className="w-full">
             <CurrencySelect
@@ -94,17 +84,17 @@ export function CurrencyConverter() {
               disabled={isLoading && !data}
             />
           </div>
-          
-          <Button 
-            variant="outline" 
-            size="icon" 
+
+          <Button
+            variant="outline"
+            size="icon"
             className="shrink-0 rounded-full h-10 w-10 mb-0 sm:mb-[2px] hover:bg-slate-100 hover:text-blue-600 transition-all dark:hover:bg-slate-800"
             onClick={handleSwap}
             aria-label="Swap currencies"
           >
             <ArrowLeftRight className="h-4 w-4 rotate-90 sm:rotate-0 transition-transform" />
           </Button>
-          
+
           <div className="w-full">
             <CurrencySelect
               label="To"
